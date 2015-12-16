@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="realtimewebapplication">
+<head>
+    <title>RealTime Web App</title>
+    <base href="/main.html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link type="text/css" rel="stylesheet" href="./public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./public/css/font-awesome.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+      data-target="#bs-example-navbar-collapse-1" >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/">RealTime Web Application</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="#/">Home</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+    <div class="page" ng-view=""></div>
+</div>
+
+
+</body>
+    <script type="text/javascript" src="./public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="./public/js/angular.min.js"></script>
+    <script type="text/javascript" src="./public/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./public/js/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="./public/js/angular-route.min.js"></script>
+    <script type="text/javascript" src="./client/directives/directives.js"></script>
+    <script type="text/javascript" src="./client/services/factory.js"></script>
+    <script type="text/javascript" src="./client/controllers/appCtrl.js"></script>
+    <script type="text/javascript">
+      $(document).on('click','.navbar-collapse.in',function(e) {if( $(e.target).is('a') ) {$(this).collapse('hide');}});
+    </script>
+    <style type="text/css">
+      .pagination li{cursor: pointer;}
+    </style>
+</html>

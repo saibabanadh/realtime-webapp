@@ -1,0 +1,89 @@
+<div ng-controller="ordersCtrl">
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>List of all Orders</h3>
+    </div>
+    <div class="col-sm-4">
+      <button style="float:right;margin-top:8px;" ng-click="new_Order('New Order')" class="btn btn-lg btn-primary">New Order</button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+   <div class="col-sm-4">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="search" placeholder="Search Order"/>
+      <span class="input-group-addon">
+        <i class="fa fa-search"></i>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-8" style="float:right;">
+    <div class="alert alert-dismissible alert-success" ng-show="message">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <div  >{{ message }}</div>
+    </div>
+    <div class="alert alert-dismissible alert-danger" ng-show="error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <div  >{{ error }}</div>
+    </div>
+  </div>
+</div>
+<br />
+<!-- Listing all the Orders in a responsive table with Filtering, Searching and Pagination-->
+<div class="table-responsive">
+  <table class='table table-striped table-bordered table-hover'>
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Email</th>
+        <th>Contact Name</th>
+        <th>Item Information</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='order in filtered = orders | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit'>
+        <td>{{order.source}}</td>
+        <td>{{order.destination}}</td>
+        <td>{{order.email}}</td>
+        <td>{{order.contact}}</td>
+        <td>{{order.itemInfo}}</td>
+        <td style="text-align: center"><button ng-click="edit_Order('Edit Order', this.order.orderId)" class="btn btn-primary">Edit</button></td>
+        <td style="text-align: center"><button ng-click="remove_Order(this.order.orderId)" class="btn btn-danger">Remove</button></td>
+      </tbody>
+    </table>
+    <pagination page="currentPage" max-size="noOfPages" total-items="totalOrders" items-per-page="entryLimit"></pagination>
+  </div>
+
+<!-- Order Popup Modal for New/Edit Orders-->
+
+  <modal visible="showOrderPopup">
+    <form role="form" ng-submit="save_order()">
+      <input type="hidden" ng-model="order_exists">
+      <div class="form-group" >
+        <label for="source">Source:</label>
+        <input type="text" class="form-control" pattern="[A-Za-z]+" title="Enter only Alphabets" name="source" placeholder="Enter Source" required="true" ng-model="order.source">
+      </div>
+      <div class="form-group">
+        <label for="destination">Destination:</label>
+        <input type="text" class="form-control" pattern="[A-Za-z]+" title="Enter only Alphabets" name="destination" placeholder="Enter Destination" required="true" ng-model="order.destination">
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact Name:</label>
+        <input type="text" class="form-control" pattern="[A-Za-z]+" title="Enter only Alphabets" name="contact" placeholder="Enter Contact Name" required="true" ng-model="order.contact">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" validate="true" name="email"  placeholder="Enter email" required="true" ng-model="order.email">
+      </div>
+      <div class="form-group">
+        <label for="itemInfo">Item Information:</label>
+        <textarea style="resize: none;" rows="3" class="form-control" name="itemInfo" placeholder="Item Information" ng-model="order.itemInfo" required="true"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" >Save Order</button>
+    </form>
+  </modal>
+</div>
+
